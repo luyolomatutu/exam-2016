@@ -1,0 +1,133 @@
+---
+title: "Stats Exam, 31st August 2016"
+Author: Luyolo Matutu
+output: github_document
+---
+# Question 1
+
+## Null Hypothesis
+* increasing resting heart rate in males does not have a stronger association with increasing body temperature compared with females
+
+## Alternative Hypothesis
+* increasing resting heart rate in males has a stronger association with increasing body temperature compared with females
+
+```{r echo = TRUE}
+
+# read the data
+x <- read.csv("file:///C:/Users/Wits-User/Desktop/Stats Exam 2016/question1.csv")
+
+#plot the data for male heart rate vs body temperature
+plot(x$male,x$body_temperature, main = 'The effect of increasing resting heart rate on body temperature in males', ylab = 'body temperature', xlab = 'male resting heart rate', pch = 19, col = "turquoise")
+abline(lm(x$male~x$body_temperature, data = x), lwd = 3, col = "black")
+
+# linear regression
+x1 <- lm(x$male~x$body_temperature, data = x)
+summary(x1)
+
+#plot the data for female heart rate vs temperature
+plot (x$female,x$body_temperature, main = 'The effect of increaing resting heart rate on body tempereature in females', ylab = 'body temperature', xlab = 'female resting heart rate', pch = 19, col = "purple")
+abline(lm(x$female~x$body_temperature, data = x), lwd = 3, col = "black")
+
+#linear regression
+x1 <- lm(x$female~x$body_temperature, data = x)
+summary(x1)
+```
+
+## Test assumptions
+* linear regression aims to see if there is a linear relationship between the duration of running time and the calories consumped.
+* the data has two variables, therefore, one variable is considered to be independent and the other is considered to be a dependent variable.
+
+## Output of statistical test
+* Males: df = 63, p value = 0.1333
+* Females: df = 63, p value = 0.02186
+
+## Conclusions
+* p value for males is more than 0.05 but the p value for females is less than 0.05, therefore reject the alternative hypothesis and accept the null hypothesis.
+* females have a stronger association between resting heart rate and body temperature.
+
+# Question 2
+
+## Null hypopthesis
+* intoxicated test subjects do not use their dominant hand and are not subject to ataxic gait.
+
+## Alternative hypothesis
+* intoxicated individuals use their dominant hand and are subject to ataxic gait.
+```{r echo=TRUE}
+# read the data
+x <- read.csv("file:///C:/Users/Wits-User/Desktop/Stats Exam 2016/question2.csv")
+x1 <- xtabs(~handedness + first_stumble, data = x)
+head(x)
+table(x$handedness, x$first_stumble)
+
+#contents of data x
+dim(x)
+names(x)
+head(x)
+tail(x)
+summary(x)
+
+#plot the data
+
+barplot(x1, beside = TRUE, ylab = 'intoxication', xlab= 'presentation', main = 'effect of intoxication on handedness and ataxia', col= c("pink", "turquoise"))
+
+legend('top', c("handedness", "ataxia"), fill = c("pink", "turquoise"))
+
+# statistical test
+z <- chisq.test(x1, correct = TRUE)
+z
+```
+## Test assumption
+* the data is categorical but from the same population
+* the aim of the exercise is to see if there is an association between the variables with intoxication
+
+## Output of the statistical test
+* df = 1, p value < 0.05
+
+## Conclusion
+* Alcohol consumption causes ataxia and more dependence on dominant hand
+
+# Question 3
+
+## Null hypothesis
+* The number of calories consumed does not depend on running time
+
+## Alternative hypothesis
+* The number of calories consumed depends on running time
+
+```{r echo=TRUE}
+# read the data
+x <- read.csv("file:///C:/Users/Wits-User/Desktop/Stats Exam 2016/question3.csv")
+
+#tidy the data
+time = x$time
+calories = x$calories
+head(cbind(time,calories))
+
+#plot the data
+plot(x$time,x$calories, main = 'the effect of running time on calorie consumption', xlab = 'time (s)', ylab = 'calorie consumption (cal)', pch = 19, col = "pink")
+abline(lm(x$time ~ x$calories, data = x), col = "purple", lwd = 3)
+
+#linear regression
+x1 <- lm(x$time~x$calories, data = x)
+summary(x1)
+```
+
+## prediction of calories consumed if running time is reduced to 30 minutes
+* 460 calories
+
+## Test assumptions
+* linear regression aims to see if there is a linear relationship between the duration of running time and the calories consumped.
+* the data has two variables, therefore, one variable is considered to be independent and the other is considered to be a dependent variable.
+
+## Output of the statistical test
+* p value: 0.001522, df: 17
+
+## Conclusion
+* p value< 0.05 therefore reject the null hypothesis and accept the alternative hypothesis.
+* there is a linear relationship between the two variables, therefore calorie consumption depends on the duration of running time.
+
+# Question 4
+```{r}
+
+```
+
